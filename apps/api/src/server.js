@@ -6,7 +6,7 @@ const server = app.listen(env.PORT, () => {
   logger.info({
     port: env.PORT,
     environment: env.NODE_ENV
-  }, `Proyecto NodeJS running 🚀: ${env.PORT}`)
+  }, `Proyecto NodeJS running :)  =) ==========================================: ${env.PORT}`)
 })
 
 let shuttingDown = false
@@ -33,7 +33,7 @@ function shutdown(signal) {
 }
 
 setTimeout(() => {
-  logger.error('Forzado a apager despues de cierto tiempo')
+  logger.error('Forzado a apagar despues de cierto tiempo')
   process.exit(1)
 }, 10000).unref()
 
