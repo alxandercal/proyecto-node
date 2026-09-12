@@ -16,9 +16,13 @@ function shutdown(signal) {
     return
   }
   shuttingDown = true
-  logger.info({
-    signal
-  }, 'Inicia proceso de apagado')
+  logger.info({signal}, 'Inicia proceso de apagado')
+
+
+    setTimeout(() => {
+  logger.error('Forzado a apagar despues de cierto tiempo')
+  process.exit(1)
+        }, 10000).unref()
 
   server.close((error) => {
   if (error) {
@@ -32,10 +36,7 @@ function shutdown(signal) {
 })
 }
 
-setTimeout(() => {
-  logger.error('Forzado a apagar despues de cierto tiempo')
-  process.exit(1)
-}, 10000).unref()
+
 
 process.on('SIGINT', () => {
   shutdown('SIGINT')

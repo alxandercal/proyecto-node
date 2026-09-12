@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { createProduct, deleteProduct, getProduct, listProducts, updateProduct } from './product.controller.js'
+import { createProduct, deleteProduct, getProduct, listProducts, updateProduct } from './products.controller.js'
 import { createProductSchema, listProductsSchema, productIdSchema, updateProductSchema } from './product.schema.js'
 import { asyncHandler } from '../../shared/middleware/async-handler.js'
 import { validate } from '../../shared/middleware/validate.middleware.js'
