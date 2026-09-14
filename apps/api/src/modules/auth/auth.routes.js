@@ -7,7 +7,7 @@ import {validate} from "../../shared/middleware/validate.middleware.js"
 
 const router=Router()
 
-router.post('/register',validate(registerSchema,asyncHandler(register)))
+router.post('/register',validate(registerSchema),asyncHandler(register))
 
 router.post('/login',validate(loginSchema),asyncHandler(login))
 

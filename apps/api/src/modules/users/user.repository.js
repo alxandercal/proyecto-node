@@ -1,3 +1,5 @@
+//check thi in the teams video class.========>
+
 import {FieldValue} from "firebase-admin/firestore"
 import {db} from '../../config/firebase.js'
 
@@ -47,13 +49,13 @@ export async function findById(id) {
 }
 
 export async function findByEmail(email) {
-    const user = await userCollection.where('email' , '==',email).limit(1).get()
+    const snapshot = await userCollection.where('email' , '==',email).limit(1).get()
 
-    if(user.empty){
+    if(snapshot.empty){
         return null
     }
 
-    const foundUser= user [0]
+    const foundUser= snapshot.docs[0]
 
     return {
         ...mapUser(foundUser),
