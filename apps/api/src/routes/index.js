@@ -7,9 +7,9 @@ import userRoutes from '../modules/users/user.routes.js'
 const router = Router()
 
 router.use('/', healthRoutes)
-router.use('auth',authRoutes)
+router.use('/auth',authRoutes)
 router.use('/user',userRoutes)
-router.use('/product',productsRoutes)
+router.use('/products',productsRoutes)
 
 
 export default router

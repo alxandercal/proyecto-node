@@ -13,7 +13,7 @@ if(!env.JWT_REFRESH_SECRET){
 export const authConfig=Object.freeze({
     accessSecret: env.JWT_ACCESS_SECRET,
     refreshSecret:env.JWT_REFRESH_SECRET,
-    accessExpiresIn:env.ACCESS_EXPIRES_IN,
+    accessExpiresIn:env.JWT_ACCESS_EXPIRES_IN,
     refreshExpiresIn:env.JWT_REFRESH_EXPIRES_IN
 })
 

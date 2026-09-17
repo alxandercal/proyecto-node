@@ -8,6 +8,7 @@ import { authorize } from '../../shared/middleware/authorized.middleware.js'
 
 const router = Router()
 
+
 // Rutas publicas
 router.get('/', validate(listProductsSchema), asyncHandler(listProducts))
 router.get('/:id', validate(productIdSchema), asyncHandler(getProduct))

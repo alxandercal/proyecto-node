@@ -17,7 +17,7 @@ function issueTokens(user){
 }
 
 
-export async function registerSchema(data){
+export async function register(data){
     const existingUser= await userRepository.findByEmail(data.email)//preguntar si no ocupa un await
     if(existingUser){
         throw new AppError({
@@ -113,7 +113,7 @@ export async function refresh(refreshToken) {
     }
     const tokens = issueTokens(user)
     await authRepository.saveRefreshToken({
-        userId:user.Id,
+        userId:user.id,
         tokenHash:hashToken(tokens.refreshToken)
     })
     return tokens

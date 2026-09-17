@@ -1,5 +1,3 @@
-//check thi in the teams video class.========>
-
 import {FieldValue} from "firebase-admin/firestore"
 import {db} from '../../config/firebase.js'
 
@@ -20,11 +18,11 @@ function mapUser(document){
     const data =document.data()
 
     return{
-        Id:document.id,
-        email:document.email,
-        name:document.name,
-        role:document.role,
-        active:document.active,
+        id:document.id,
+        email:data.email,
+        name:data.name,
+        role:data.role,
+        active:data.active,
         createdAt:mapTimestamp(data.createdAt),
         updateAt:mapTimestamp(data.updateAt)
     }
@@ -59,7 +57,7 @@ export async function findByEmail(email) {
 
     return {
         ...mapUser(foundUser),
-        passwordHashs:foundUser.data().passwordHashs
+        passwordHash:foundUser.data().passwordHash
     }
 
 }

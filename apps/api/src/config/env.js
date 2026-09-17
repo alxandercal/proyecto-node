@@ -24,9 +24,12 @@ export const env = Object.freeze({
   API_PREFIX: process.env.API_PREFIX,
   CORS_ORIGIN: process.env.CORS_ORIGIN,
   LOG_LEVEL: process.env.LOG_LEVEL,
+// claves de firebase
   FIREBASE_PROJECT_ID:process.env.FIREBASE_PROJECT_ID,
   FIREBASE_CLIENT_EMAIL:process.env.FIREBASE_CLIENT_EMAIL,
   FIREBASE_PRIVATE_KEY:process.env.FIREBASE_PRIVATE_KEY,
+
+// claves del jws ->Cryptojs
   JWT_ACCESS_SECRET:process.env.JWT_ACCESS_SECRET,
   JWT_REFRESH_SECRET:process.env.JWT_REFRESH_SECRET,
   JWT_ACCESS_EXPIRES_IN:process.env.JWT_ACCESS_EXPIRES_IN,
@@ -38,3 +41,4 @@ export const env = Object.freeze({
 if (!env.FIREBASE_PROJECT_ID) {
   throw new Error('Falta la variable de entorno FIREBASE_PROJECT_ID')
 }
+

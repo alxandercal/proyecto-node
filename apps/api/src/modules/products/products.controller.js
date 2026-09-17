@@ -1,7 +1,9 @@
 import * as productService from './product.service.js'
 
 export async function listProducts(req, res) {
+    console.log(req)
   const products = await productService.listProducts(req.validate.query)
+  console.log('productos: ', products)
   return res.status(200).json({
     success: true,
     data: products,

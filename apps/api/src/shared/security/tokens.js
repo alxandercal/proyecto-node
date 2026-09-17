@@ -3,13 +3,13 @@ import jwt from 'jsonwebtoken'
 import { authConfig } from '../../config/auth.js'
 
 export function singAccessToken(payload){
-    return jwt.sing(payload,authConfig.accessSecret,{
+    return jwt.sign(payload,authConfig.accessSecret,{
         expiresIn:authConfig.accessExpiresIn
     })
 }
 
 export function refreshToken(payload){
-    return jwt.sing(payload,authConfig.refreshSecret,{
+    return jwt.sign(payload,authConfig.refreshSecret,{
         expiresIn:authConfig.refreshExpiresIn
     })
 }
@@ -19,7 +19,7 @@ export function verifyAccessToken(token){
 }
 
 export function verifyRefreshToken(token){
-    return jwt.verify(token,authConfig.refreshToken)
+    return jwt.verify(token,authConfig.refreshSecret)
 }
 
 export function hashToken(token){
