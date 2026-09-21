@@ -1,69 +1,143 @@
-import {FieldValue} from 'firebase-admin/firestore'
-import {db} from '../../config/firebase.js'
+import {
+  FieldValue
+} from 'firebase-admin/firestore'
 
-const categoriesCollection = db.collection('categories')
+import {
+  db
+} from '../../config/firebase.js'
 
-//  check plis WTF whit this function
-// function serverTimestamp(value) {
-//   return value?.toDate?.()?.toISOString() ?? null
-// }
+const categoriesCollection =
+  db.collection('categories')
 
-function mapCategory(document) {
+function mapTimestamp(
+  value
+) {
+  return (
+    value
+      ?.toDate?.()
+      ?.toISOString() ??
+    null
+  )
+}
+
+function mapCategory(
+  document
+) {
   if (!document.exists) {
     return null
   }
 
-  const data = document.data()
+  const data =
+    document.data()
 
   return {
-    id: document.id,
+    id:
+      document.id,
+
     ...data,
-    createdAt: data.createdAt?.toDate?.()?.toISOString() ?? null,
-    updatedAt: data.updatedAt?.toDate?.()?.toISOString() ?? null
+
+    createdAt:
+      mapTimestamp(
+        data.createdAt
+      ),
+
+    updatedAt:
+      mapTimestamp(
+        data.updatedAt
+      )
   }
 }
 
-
-
-
 export async function listCategories() {
-    const categories = await categoriesCollection.orderBy('name').get()
-    return categories.docChanges.map(mapCategory)
+  const snapshot =
+    await categoriesCollection
+      .orderBy(
+        'name'
+      )
+      .get()
 
+  return snapshot.docs.map(
+    mapCategory
+  )
 }
 
-export async function findCategoryById(id) {
-  const category = await categoriesCollection.doc(id).get()
-  return mapCategory(category)
+export async function findCategoryById(
+  id
+) {
+  const document =
+    await categoriesCollection
+      .doc(id)
+      .get()
+
+  return mapCategory(
+    document
+  )
 }
 
-export async function findCategoryBySlug(slug) {
-    const category =await categoriesCollection.where('slug','==',slug).limit(1).get()
-    return category.empty ? null : mapCategory(category.docs[0])
+export async function findCategoryBySlug(
+  slug
+) {
+  const snapshot =
+    await categoriesCollection
+      .where(
+        'slug',
+        '==',
+        slug
+      )
+      .limit(1)
+      .get()
+
+  return snapshot.empty
+    ? null
+    : mapCategory(
+        snapshot.docs[0]
+      )
 }
 
+export async function createCategory(
+  data
+) {
+  const categoryRef =
+    categoriesCollection.doc()
 
-export async function createCategory(data) {
-    const category = categoriesCollection.doc()
-    await category.set({
-        ...data,
-        createdAt:FieldValue.serverTimestamp(),
-        updatedAt:FieldValue.serverTimestamp()
-    })
-    return mapCategory(await category.get())
+  await categoryRef.set({
+    ...data,
+
+    createdAt:
+      FieldValue.serverTimestamp(),
+
+    updatedAt:
+      FieldValue.serverTimestamp()
+  })
+
+  return mapCategory(
+    await categoryRef.get()
+  )
 }
 
+export async function updateCategory(
+  id,
+  data
+) {
+  const categoryRef =
+    categoriesCollection.doc(id)
 
-export async function updateCategory(id,data) {
-    const category = categoriesCollection.doc()
-    await category.update({
-        ...data,
-        updatedAt:FieldValue.serverTimestamp()
-    })
-    return mapCategory(await category.get())
+  await categoryRef.update({
+    ...data,
+
+    updatedAt:
+      FieldValue.serverTimestamp()
+  })
+
+  return mapCategory(
+    await categoryRef.get()
+  )
 }
 
-
-export async function deleteCategory(id) {
-    await categoriesCollection.doc(id).delete()
+export async function deleteCategory(
+  id
+) {
+  await categoriesCollection
+    .doc(id)
+    .delete()
 }

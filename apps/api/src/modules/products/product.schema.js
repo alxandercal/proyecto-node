@@ -89,7 +89,9 @@ export const listProductsSchema = z.object({
 export const getProductSchema = z.object({
   body: emptyObject,
   params: productIdParams,
-  query: emptyObject
+  query: emptyObject,
+  categoryId:
+  z.string().trim().min(1).optional()
 })
 
 export const createProductSchema = z.object({
