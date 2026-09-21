@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { createProduct, deleteProduct, getProduct, listProducts, updateProduct } from './products.controller.js'
-import { createProductSchema, listProductsSchema, productIdSchema, updateProductSchema } from './product.schema.js'
+import { listProductsSchema,getProductSchema,createProductSchema,updateProductSchema,deleteProductSchema } from './product.schema.js'
 import { asyncHandler } from '../../shared/middleware/async-handler.js'
 import { validate } from '../../shared/middleware/validate.middleware.js'
 import { authorize } from '../../shared/middleware/authorized.middleware.js'
@@ -11,11 +11,11 @@ const router = Router()
 
 // Rutas publicas
 router.get('/', validate(listProductsSchema), asyncHandler(listProducts))
-router.get('/:id', validate(productIdSchema), asyncHandler(getProduct))
+router.get('/:id', validate(getProductSchema), asyncHandler(getProduct))
 
 // Rutas administrativas z
 router.post('/',authorize('products:create'), validate(createProductSchema), asyncHandler(createProduct))
 router.patch('/:id',authorize('products:update') ,validate(updateProductSchema), asyncHandler(updateProduct))
-router.delete('/:id',authorize('products:delete'), validate(productIdSchema), asyncHandler(deleteProduct))
+router.delete('/:id',authorize('products:delete'), validate(deleteProductSchema), asyncHandler(deleteProduct))
 
 export default router
